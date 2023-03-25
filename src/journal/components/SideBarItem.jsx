@@ -23,7 +23,7 @@ export const SideBarItem = ({ title = "", body, id, date, imageUrls = [] }) => {
   }, [title]);
 
   const newBody = useMemo(() => {
-    return body.length > 60 ? body.substring(0, 60) + "..." : body;
+    return body.length > 80 ? body.substring(0, 80) + "..." : body;
   }, [body]);
 
   const formatedDate = formatDate(date);
@@ -31,24 +31,16 @@ export const SideBarItem = ({ title = "", body, id, date, imageUrls = [] }) => {
   return (
     <ListItem disablePadding>
       <ListItemButton onClick={onClickNote}>
-        <Grid
-          container
-         
-        >
-          <Grid
-            container
-            direction="column"
-            alignItems="center"
-            justifyContent="center"
-          >
+        <Grid container alignItems="center" justifyContent="space-between">
+          <Grid item xs={5}>
             <ListItemText primary={formatedDate} />
+          </Grid>
+          <Grid item xs={7}>
             <ListItemText primary={newTitle} />
           </Grid>
-
-     
-        </Grid>
-       <Grid container>
-          <ListItemText secondary={newBody} />
+          <Grid item xs={12}>
+            <ListItemText secondary={newBody} />
+          </Grid>
         </Grid>
       </ListItemButton>
     </ListItem>

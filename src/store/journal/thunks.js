@@ -21,7 +21,7 @@ export const startNewNote = () => {
         const newDoc = doc( collection( FirebaseDB, `${ uid }/journal/notes`) );
         await setDoc( newDoc, newNote );
 
-        newNote.id = newDoc.id;  
+        newNote.id = newDoc.id;
 
         //! dispatch
         dispatch( addNewEmptyNote( newNote ) );
@@ -33,9 +33,9 @@ export const startNewNote = () => {
 
 export const startLoadingNotes = () => {
     return async( dispatch, getState ) => {
-        
+
         const { uid } = getState().auth;
-        if ( !uid ) throw new Error('El UID del usuario no existe');
+        if ( !uid ) throw new Error("Users UID doesn't exist");
 
         const notes = await loadNotes( uid );
         dispatch( setNotes( notes ) );
@@ -48,11 +48,12 @@ export const startSaveNote = () => {
         dispatch( setSaving() );
 
         const { uid } = getState().auth;
+        //actilve note always updated by useEffect in NoteView
         const { active:note } = getState().journal;
 
         const noteToFireStore = { ...note };
         delete noteToFireStore.id;
-    
+
         const docRef = doc( FirebaseDB, `${ uid }/journal/notes/${ note.id }` );
         await setDoc( docRef, noteToFireStore, { merge: true });
 
@@ -65,7 +66,7 @@ export const startSaveNote = () => {
 export const startUploadingFiles = ( files = [] ) => {
     return async( dispatch ) => {
         dispatch( setSaving() );
-            
+
         // await fileUpload( files[0] );
         const fileUploadPromises = [];
         for ( const file of files ) {
@@ -73,9 +74,9 @@ export const startUploadingFiles = ( files = [] ) => {
         }
 
         const photosUrls = await Promise.all( fileUploadPromises );
-        
+
         dispatch( setPhotosToActiveNote( photosUrls ));
-        
+
     }
 }
 
