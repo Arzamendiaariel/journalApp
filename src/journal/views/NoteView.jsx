@@ -52,6 +52,7 @@ export const NoteView = () => {
   };
 
   const onFileInputChange = ({ target }) => {
+    console.log(target.files)
     if (target.files === 0) return;
     dispatch(startUploadingFiles(target.files));
   };
@@ -136,7 +137,7 @@ export const NoteView = () => {
       </Grid>
 
       {/* Image gallery */}
-      {/* <ImageGallery images={ note.imageUrls } /> */}
+      <ImageGallery images={ note.imageUrls } />
     </Grid>
   );
 };

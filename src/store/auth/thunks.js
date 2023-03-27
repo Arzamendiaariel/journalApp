@@ -6,7 +6,7 @@ export const checkingAuthentication = () => {
     return async( dispatch ) => {
 
         dispatch( checkingCredentials() );
-        
+
     }
 }
 
@@ -57,7 +57,7 @@ export const startLoginWithEmailPassword = ({ email, password }) => {
 
 export const startLogout = () => {
     return async( dispatch ) => {
-        
+
         await logoutFirebase();
         dispatch( clearNotesLogout() );
         dispatch( logout() );
